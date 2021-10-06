@@ -2,7 +2,6 @@ package com.convert.romannumeral.exception;
 
 import com.convert.romannumeral.model.ErrorMessage;
 import com.convert.romannumeral.model.ErrorResponse;
-import com.convert.romannumeral.service.IntegerToRomanNumberServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.TypeMismatchException;
