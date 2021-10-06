@@ -1,6 +1,10 @@
 package com.convert.romannumeral.controller;
 
 import com.convert.romannumeral.service.IntegerToRomanNumberService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -22,6 +26,7 @@ import javax.validation.constraints.Min;
 @RestController
 @RequestMapping(value = "/romannumeral", produces = MediaType.APPLICATION_JSON_VALUE)
 @Validated
+@Api("Integer to Roman Numeral API")
 public class IntegerToRomanNumberController {
     private static final Logger LOGGER = LoggerFactory.getLogger(IntegerToRomanNumberController.class);
     private IntegerToRomanNumberService integerToRomanNumberService;
@@ -37,10 +42,16 @@ public class IntegerToRomanNumberController {
      * @param number
      */
     @GetMapping()
+    @ApiOperation("Convert Integer to Roman Numeral")
+    //TODO how to have enum & http status value configured below
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
     public void convertIntegerToRomanNumber(@RequestParam("query")
                                             @Min(value = 1)
                                             @Max(value = 3999)
-                                                    int number,
+                                                    Integer number,
                                             @RequestParam("min")
                                             @Min(value = 1)
                                             @Max(value = 3998)
