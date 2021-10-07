@@ -15,9 +15,9 @@ public class ErrorResponse implements Serializable {
     private static final long serialVersionUID = -5402974223370441730L;
     private Integer statusCode;
     private HttpStatus statusDescription;
-    private String message;
     private String errorCode;
     private List<String> errors;
+    private String message;
 
     public ErrorResponse(final HttpStatus httpStatus, final String message, final String errorCode, final List<String> errors) {
         this.statusDescription = httpStatus;
