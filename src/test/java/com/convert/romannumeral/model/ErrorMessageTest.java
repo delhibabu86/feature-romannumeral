@@ -1,5 +1,6 @@
 package com.convert.romannumeral.model;
 
+import com.convert.romannumeral.enums.ErrorMessage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
