@@ -1,10 +1,9 @@
 package com.convert.romannumeral.controller;
 
+import com.convert.romannumeral.model.ErrorResponse;
 import com.convert.romannumeral.service.IntegerToRomanNumberService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
+import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import java.util.Map;
 
 /**
@@ -37,35 +34,40 @@ public class IntegerToRomanNumberController {
     }
 
     /**
-     * @param number        Integer number entered by user to identify corresponding roman numeral
-     * @param minimumNumber Minimum range param entered by user to identify corresponding roman numeral
-     * @param maxNumber     Maximum range param entered by user to identify corresponding roman numeral
+     * @param query Integer number entered by user to identify corresponding roman numeral
+     * @param min   Minimum range param entered by user to identify corresponding roman numeral
+     * @param max   Maximum range param entered by user to identify corresponding roman numeral
      * @return Map<String, Object> Returns given input & calculated roman numeral
      */
     @GetMapping()
-    @ApiOperation("Convert Integer to Roman Numeral")
-    //TODO how to have enum & http status value configured below
+    @ApiOperation(value = "Convert Integer to Roman Numeral",
+            notes = "Returns roman numeral for given integer number range [1-3999]")
     @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Bad Request"),
-            @ApiResponse(code = 500, message = "Internal Server Error")
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad Request - Invalid Number range", response = ErrorResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class)
     })
-    public Map<String, Object> convertIntegerToRomanNumber(@RequestParam(value = "query", required = false)
-                                                           @Min(value = 1)
-                                                           @Max(value = 3999)
-                                                                   Integer number,
-                                                           @RequestParam(value = "min", required = false)
-                                                           @Min(value = 1)
-                                                           @Max(value = 3998)
-                                                                   Integer minimumNumber,
-                                                           @RequestParam(value = "max", required = false)
-                                                           @Max(value = 3999)
-                                                                   Integer maxNumber) {
+    public Map<String, Object> convertIntegerToRomanNumber(
+            @ApiParam(name = "query", type = "Integer", value = "Integer range [1-3999]")
+            @RequestParam(value = "query", required = false) Integer query,
+            @ApiParam(name = "max", type = "Integer", value = "greater than min.Integer range [1-3999]")
+            @RequestParam(value = "max", required = false) Integer max,
+            @ApiParam(name = "min", type = "Integer", value = "less than max.Integer range [1-3999]")
+            @RequestParam(value = "min", required = false) Integer min) {
         final long startTime = System.currentTimeMillis();
-        LOGGER.info(" Incoming Request ----> {} ", number);
-        final Map<String, Object> response = this.integerToRomanNumberService.convertIntegerToRomanNumber(number);
+        LOGGER.info(" Incoming Request ----> {} ", query);
+        if (ObjectUtils.isNotEmpty(query)) {
+            final Map<String, Object> response = this.integerToRomanNumberService.convertIntegerToRomanNumber(query);
+            final long endTime = System.currentTimeMillis();
+            LOGGER.info(" Total time taken for GET API /romannumeral with query param is ----> {} {}", (endTime - startTime), "ms");
+            return response;
+        }
+
+        final Map<String, Object> response = this.integerToRomanNumberService.convertIntegerRangeToRomanNumber(min, max);
         final long endTime = System.currentTimeMillis();
-        LOGGER.info(" Total Time taken for GET API /romannumeral is ----> {} ,{}", (endTime - startTime), "ms");
+        LOGGER.info(" Total time taken for GET API /romannumeral with query param is ----> {} {}", (endTime - startTime), "ms");
         return response;
+
     }
 
 }

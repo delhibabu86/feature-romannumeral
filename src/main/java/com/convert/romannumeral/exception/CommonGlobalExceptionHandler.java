@@ -1,7 +1,8 @@
 package com.convert.romannumeral.exception;
 
-import com.convert.romannumeral.model.ErrorMessage;
+import com.convert.romannumeral.enums.ErrorMessage;
 import com.convert.romannumeral.model.ErrorResponse;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.TypeMismatchException;
@@ -16,7 +17,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintViolationException;
 
 /**
  * Global Exception class to handle spring boot application exceptions
@@ -36,10 +36,27 @@ public class CommonGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return new ResponseEntity(errorResponse, new HttpHeaders(), errorResponse.getStatusDescription());
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
+    @ExceptionHandler(UserInputQueryParamMissingException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    protected ErrorResponse handleConstraintViolationException(final ConstraintViolationException exception) {
-        final ErrorResponse errorResponse = this.createError(HttpStatus.BAD_REQUEST, exception.getMessage(), ErrorMessage.INVALID_NUMBER_RANGE.name(), ErrorMessage.INVALID_NUMBER_RANGE.getMessage());
+    protected ResponseEntity<Object> handleUserInputQueryParamMissingException(final UserInputQueryParamMissingException exception) {
+        final String error = exception.getParameterName() + ErrorMessage.MISSING_PARAMETER.getMessage();
+        final ErrorResponse errorResponse = this.createError(HttpStatus.BAD_REQUEST, exception.getMessage(), ErrorMessage.MISSING_PARAMETER.name(), error);
+        LOGGER.error(errorResponse.toString());
+        return new ResponseEntity(errorResponse, new HttpHeaders(), errorResponse.getStatusDescription());
+    }
+
+    @ExceptionHandler(UserInputException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    protected ErrorResponse handleUserInputException(final UserInputException exception) {
+        final ErrorResponse errorResponse = this.createError(HttpStatus.BAD_REQUEST, exception.getMessage(), exception.getErrorMessage().name(), buildError(exception));
+        LOGGER.error(errorResponse.toString());
+        return errorResponse;
+    }
+
+    @ExceptionHandler(UserInputInvalidRangeException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    protected ErrorResponse handleUserInputInvalidRangeException(final UserInputInvalidRangeException exception) {
+        final ErrorResponse errorResponse = this.createError(HttpStatus.BAD_REQUEST, exception.getMessage(), exception.getErrorMessage().name(), exception.getErrorMessage().getMessage());
         LOGGER.error(errorResponse.toString());
         return errorResponse;
     }
@@ -59,5 +76,14 @@ public class CommonGlobalExceptionHandler extends ResponseEntityExceptionHandler
 
     private ErrorResponse createError(final HttpStatus status, final String localizedMessage, final String errorCode, final String error) {
         return new ErrorResponse(status, localizedMessage, errorCode, error);
+    }
+
+    private String buildError(final UserInputException exception) {
+        final StringBuilder errorBuilder = new StringBuilder();
+        errorBuilder.append(exception.getErrorField())
+                .append(StringUtils.SPACE)
+                .append(" - ")
+                .append(exception.getErrorMessage().getMessage());
+        return errorBuilder.toString();
     }
 }
