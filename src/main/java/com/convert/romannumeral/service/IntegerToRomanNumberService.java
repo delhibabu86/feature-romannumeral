@@ -1,8 +1,10 @@
 package com.convert.romannumeral.service;
 
+import java.util.Map;
+
 /**
  * @author dvengambhanumoorthy
  */
 public interface IntegerToRomanNumberService {
-    void convertIntegerToRomanNumber(int number);
+    Map<String, Object> convertIntegerToRomanNumber(int number);
 }
