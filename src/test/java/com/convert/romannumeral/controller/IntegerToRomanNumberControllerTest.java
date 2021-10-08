@@ -1,6 +1,6 @@
 package com.convert.romannumeral.controller;
 
-import com.convert.dto.NumberRangeToRomanResponse;
+import com.convert.romannumeral.dto.NumberRangeToRomanResponse;
 import com.convert.romannumeral.service.IntegerToRomanNumberService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;

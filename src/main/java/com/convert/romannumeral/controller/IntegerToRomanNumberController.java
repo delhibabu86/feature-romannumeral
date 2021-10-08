@@ -1,7 +1,7 @@
 package com.convert.romannumeral.controller;
 
-import com.convert.dto.IntegerToRomanResponse;
-import com.convert.dto.NumberRangeToRomanResponse;
+import com.convert.romannumeral.dto.IntegerToRomanResponse;
+import com.convert.romannumeral.dto.NumberRangeToRomanResponse;
 import com.convert.romannumeral.model.ErrorResponse;
 import com.convert.romannumeral.service.IntegerToRomanNumberService;
 import io.swagger.annotations.*;

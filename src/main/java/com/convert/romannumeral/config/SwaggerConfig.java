@@ -5,11 +5,13 @@ import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.*;
+
+import java.util.Arrays;
 
 /**
  * Exposing REST API docs via swagger
@@ -23,10 +25,27 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(buildApiInfo())
                 .enable(true)
+                .securitySchemes(Arrays.asList(securityScheme()))
+                .securityContexts(Arrays.asList(securityContexts()))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.convert.romannumeral"))
                 .paths(PathSelectors.any())
                 .build();
+    }
+
+    private SecurityContext securityContexts() {
+        return SecurityContext.builder()
+                .securityReferences(Arrays.asList(basicAuthReference()))
+                .forPaths(PathSelectors.ant("/swagger-ui/**"))
+                .build();
+    }
+
+    private SecurityReference basicAuthReference() {
+        return new SecurityReference("basicAuth", new AuthorizationScope[0]);
+    }
+
+    private SecurityScheme securityScheme() {
+        return new BasicAuth("basicAuth");
     }
 
     private ApiInfo buildApiInfo() {

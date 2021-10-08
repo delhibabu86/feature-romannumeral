@@ -1,7 +1,7 @@
 package com.convert.romannumeral.service;
 
-import com.convert.dto.IntegerToRomanResponse;
-import com.convert.dto.NumberRangeToRomanResponse;
+import com.convert.romannumeral.dto.IntegerToRomanResponse;
+import com.convert.romannumeral.dto.NumberRangeToRomanResponse;
 import com.convert.romannumeral.validator.NumberValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
