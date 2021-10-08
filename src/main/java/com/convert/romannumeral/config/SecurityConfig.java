@@ -27,7 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        System.out.println();
         auth.inMemoryAuthentication()
                 .withUser(userName)
                 .password(passwordEncoder().encode(password))
@@ -36,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * Enabled basic in memory authentication for rest api & swagger end points
+     *
      * @param http
      * @throws Exception
      */

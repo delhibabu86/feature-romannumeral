@@ -40,8 +40,6 @@ class IntegerToRomanNumberControllerTest {
     void convertIntegerToRomanNumber_constraintViolation() {
         doNothing().when(this.integerToRomanNumberService).convertIntegerToRomanNumber(ArgumentMatchers.anyInt());
         final ConstraintViolationException constraintViolationException = assertThrows(ConstraintViolationException.class, () -> this.integerToRomanNumberController.convertIntegerToRomanNumber(-1, -2, -3));
-        System.out.println(constraintViolationException);
-
     }*/
 
     @Test
