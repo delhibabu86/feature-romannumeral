@@ -19,12 +19,8 @@ public class ErrorResponse implements Serializable {
     private List<String> errors;
     private String message;
 
-    public ErrorResponse(final HttpStatus httpStatus, final String message, final String errorCode, final List<String> errors) {
-        this.statusDescription = httpStatus;
-        this.message = message;
-        this.errors = errors;
-        this.statusCode = httpStatus.value();
-        this.errorCode = errorCode;
+    public ErrorResponse() {
+        super();
     }
 
     public ErrorResponse(final HttpStatus httpStatus, final String message, final String errorCode, final String error) {

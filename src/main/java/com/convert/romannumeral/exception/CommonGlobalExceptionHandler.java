@@ -9,7 +9,6 @@ import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -27,14 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 public class CommonGlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(CommonGlobalExceptionHandler.class);
-
-    @Override
-    protected ResponseEntity<Object> handleMissingServletRequestParameter(final MissingServletRequestParameterException exception, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
-        final String error = exception.getParameterName() + ErrorMessage.MISSING_PARAMETER.getMessage();
-        final ErrorResponse errorResponse = this.createError(HttpStatus.BAD_REQUEST, exception.getMessage(), ErrorMessage.MISSING_PARAMETER.name(), error);
-        LOG.error("error in handleMissingServletRequestParameter --->: {}", errorResponse);
-        return new ResponseEntity<>(errorResponse, new HttpHeaders(), errorResponse.getStatusDescription());
-    }
 
     @ExceptionHandler(UserInputQueryParamMissingException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
