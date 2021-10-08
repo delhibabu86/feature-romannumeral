@@ -5,9 +5,10 @@ import com.openpojo.reflection.filters.FilterPackageInfo;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.Validator;
 import com.openpojo.validation.ValidatorBuilder;
-import com.openpojo.validation.affirm.Affirm;
 import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
+import com.openpojo.validation.utils.ValidationHelper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -17,26 +18,28 @@ import java.util.List;
  *
  * @author dvengambhanumoorthy
  */
-public class ModelPackageTest {
-    // Configured for expectation, so we know when a class gets added or removed.
-    private static final int EXPECTED_CLASS_COUNT = 1;
+class ModelPackageTest {
 
-    @Test
-    public void ensureExpectedPojoCount() {
-        List<PojoClass> pojoClasses = PojoClassFactory.getPojoClasses(this.getClass().getPackageName(),
+    private List<PojoClass> pojoClasses;
+
+    @BeforeEach
+    public void _setup() {
+        this.pojoClasses = PojoClassFactory.getPojoClasses(this.getClass().getPackage().getName(),
                 new FilterPackageInfo());
-        Affirm.affirmEquals("Classes added / removed?", EXPECTED_CLASS_COUNT, pojoClasses.size());
     }
 
     @Test
-    public void testPojoStructureAndBehavior() {
+    void testGetterAndSetter() {
         Validator validator = ValidatorBuilder.create()
                 // Add Testers to validate behaviour for POJO_PACKAGE
-                // See com.openpojo.validation.test.impl for more ...
                 .with(new SetterTester())
                 .with(new GetterTester())
                 .build();
-
-        validator.validate(this.getClass().getPackageName(), new FilterPackageInfo());
+        for (final PojoClass pojoClass : this.pojoClasses) {
+            validator.validate(pojoClass);
+            if (!pojoClass.isEnum() && !pojoClass.isInterface()) {
+                ValidationHelper.getMostCompleteInstance(pojoClass).toString();
+            }
+        }
     }
 }

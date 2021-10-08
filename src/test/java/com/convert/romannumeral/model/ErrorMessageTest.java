@@ -8,10 +8,10 @@ import org.junit.jupiter.api.Test;
 /**
  * @author dvengambhanumoorthy
  */
-public class ErrorMessageTest {
+class ErrorMessageTest {
 
     @Test
-    public void test_errorMessage(){
+    void test_errorMessage() {
         Assertions.assertNotNull(ErrorMessage.INVALID_NUMBER_RANGE);
         Assertions.assertNotNull(ErrorMessage.INVALID_NUMBER_RANGE.getMessage());
         Assertions.assertNotNull(ErrorMessage.MISSING_PARAMETER);

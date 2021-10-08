@@ -51,8 +51,8 @@ public class IntegerToRomanNumberServiceImpl implements IntegerToRomanNumberServ
         final long endTime = System.currentTimeMillis();
         LOGGER.info(" Total Time taken for convertIntegerToRomanNumber in IntegerToRomanNumberServiceImpl  is ----> {} ,{}", (endTime - startTime), "ms");
         LOGGER.info(" Exiting Method  convertIntegerToRomanNumber in service");
-        IntegerToRomanResponse queryResponse = new IntegerToRomanResponse(String.valueOf(number), romanLiterals.toString());
-        return queryResponse;
+        return new IntegerToRomanResponse(String.valueOf(number), romanLiterals.toString());
+
         // return new NumberRangeToRomanResponse(Arrays.asList(queryResponse));
         // return Map.of("input", String.valueOf(number), "output", romanLiterals.toString());
     }

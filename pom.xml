@@ -20,6 +20,8 @@
         <com.openpojo.version>0.9.1</com.openpojo.version>
         <jacoco-maven-plugin-version>0.8.7</jacoco-maven-plugin-version>
         <maven-surefire-report-plugin-version>3.0.0-M5</maven-surefire-report-plugin-version>
+        <sonar.java.source>${java.version}</sonar.java.source>
+        <sonar-maven-plugin-version>3.9.0.2155</sonar-maven-plugin-version>
     </properties>
     <dependencies>
         <dependency>
@@ -32,10 +34,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
@@ -96,6 +94,15 @@
     </dependencyManagement>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>${sonar-maven-plugin-version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -127,7 +134,6 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <excludes>**/*Constant.*</excludes>
                     <haltOnFailure>true</haltOnFailure>
                     <rules>
                         <rule>
@@ -144,9 +150,6 @@
                                     <minimum>0.0</minimum>
                                 </limit>
                             </limits>
-                            <excludes>
-                                <exclude>**/Constant.*</exclude>
-                            </excludes>
                         </rule>
                     </rules>
                 </configuration>

@@ -5,11 +5,12 @@ package com.convert.romannumeral.exception;
  */
 public class UserInputQueryParamMissingException extends RuntimeException {
 
-    private String parameterName;
-    private String parameterType;
+    private final String parameterName;
+    private final String parameterType;
 
     public UserInputQueryParamMissingException(final String parameterName) {
         this.parameterName = parameterName;
+        this.parameterType = null;
     }
 
     public UserInputQueryParamMissingException(final String parameterName, final String parameterType) {

@@ -6,7 +6,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @EnableAsync
-public class RomanNumberApplication {
+class RomanNumberApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(RomanNumberApplication.class, args);

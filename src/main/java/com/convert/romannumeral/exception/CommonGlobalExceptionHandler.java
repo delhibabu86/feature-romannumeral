@@ -26,14 +26,14 @@ import javax.servlet.http.HttpServletRequest;
 @RestControllerAdvice
 public class CommonGlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CommonGlobalExceptionHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CommonGlobalExceptionHandler.class);
 
     @Override
     protected ResponseEntity<Object> handleMissingServletRequestParameter(final MissingServletRequestParameterException exception, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
         final String error = exception.getParameterName() + ErrorMessage.MISSING_PARAMETER.getMessage();
         final ErrorResponse errorResponse = this.createError(HttpStatus.BAD_REQUEST, exception.getMessage(), ErrorMessage.MISSING_PARAMETER.name(), error);
-        LOGGER.error(errorResponse.toString());
-        return new ResponseEntity(errorResponse, new HttpHeaders(), errorResponse.getStatusDescription());
+        LOG.error("error in handleMissingServletRequestParameter --->: {}", errorResponse);
+        return new ResponseEntity<>(errorResponse, new HttpHeaders(), errorResponse.getStatusDescription());
     }
 
     @ExceptionHandler(UserInputQueryParamMissingException.class)
@@ -41,15 +41,15 @@ public class CommonGlobalExceptionHandler extends ResponseEntityExceptionHandler
     protected ResponseEntity<Object> handleUserInputQueryParamMissingException(final UserInputQueryParamMissingException exception) {
         final String error = exception.getParameterName() + ErrorMessage.MISSING_PARAMETER.getMessage();
         final ErrorResponse errorResponse = this.createError(HttpStatus.BAD_REQUEST, exception.getMessage(), ErrorMessage.MISSING_PARAMETER.name(), error);
-        LOGGER.error(errorResponse.toString());
-        return new ResponseEntity(errorResponse, new HttpHeaders(), errorResponse.getStatusDescription());
+        LOG.error("error in handleUserInputQueryParamMissingException --->: {}", errorResponse);
+        return new ResponseEntity<>(errorResponse, new HttpHeaders(), errorResponse.getStatusDescription());
     }
 
     @ExceptionHandler(UserInputException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected ErrorResponse handleUserInputException(final UserInputException exception) {
         final ErrorResponse errorResponse = this.createError(HttpStatus.BAD_REQUEST, exception.getMessage(), exception.getErrorMessage().name(), buildError(exception));
-        LOGGER.error(errorResponse.toString());
+        LOG.error("error in handleUserInputException --->: {}", errorResponse);
         return errorResponse;
     }
 
@@ -57,21 +57,22 @@ public class CommonGlobalExceptionHandler extends ResponseEntityExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected ErrorResponse handleUserInputInvalidRangeException(final UserInputInvalidRangeException exception) {
         final ErrorResponse errorResponse = this.createError(HttpStatus.BAD_REQUEST, exception.getMessage(), exception.getErrorMessage().name(), exception.getErrorMessage().getMessage());
-        LOGGER.error(errorResponse.toString());
+        LOG.error("error in handleUserInputInvalidRangeException --->: {}", errorResponse);
         return errorResponse;
     }
 
     @Override
     protected ResponseEntity<Object> handleTypeMismatch(final TypeMismatchException exception, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
         final ErrorResponse errorResponse = this.createError(HttpStatus.BAD_REQUEST, exception.getMessage(), ErrorMessage.INPUT_TYPE_MISMATCH.name(), ErrorMessage.INPUT_TYPE_MISMATCH.getMessage());
-        LOGGER.error(errorResponse.toString());
-        return new ResponseEntity(errorResponse, new HttpHeaders(), errorResponse.getStatusDescription());
+        LOG.error("error in  handleTypeMismatch --->: {}", errorResponse);
+        return new ResponseEntity<>(errorResponse, new HttpHeaders(), errorResponse.getStatusDescription());
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(final Exception exception, final HttpServletRequest request) {
         final ErrorResponse errorResponse = this.createError(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage(), ErrorMessage.INTERNAL_SERVER_ERROR.name(), ErrorMessage.INTERNAL_SERVER_ERROR.getMessage());
-        return new ResponseEntity(errorResponse, new HttpHeaders(), errorResponse.getStatusDescription());
+        LOG.error("error in  handleException --->: {}", errorResponse);
+        return new ResponseEntity<>(errorResponse, new HttpHeaders(), errorResponse.getStatusDescription());
     }
 
     private ErrorResponse createError(final HttpStatus status, final String localizedMessage, final String errorCode, final String error) {
