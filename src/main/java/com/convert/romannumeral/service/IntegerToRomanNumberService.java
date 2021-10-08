@@ -1,12 +1,13 @@
 package com.convert.romannumeral.service;
 
-import java.util.Map;
+import com.convert.dto.IntegerToRomanResponse;
+import com.convert.dto.NumberRangeToRomanResponse;
 
 /**
  * @author dvengambhanumoorthy
  */
 public interface IntegerToRomanNumberService {
-    Map<String, Object> convertIntegerToRomanNumber(Integer number);
+    IntegerToRomanResponse convertIntegerToRomanNumber(Integer number);
 
-    Map<String, Object> convertIntegerRangeToRomanNumber(Integer min, Integer max);
+    NumberRangeToRomanResponse convertIntegerRangeToRomanNumber(Integer min, Integer max);
 }

@@ -1,11 +1,14 @@
 package com.convert.romannumeral.service;
 
+import com.convert.dto.IntegerToRomanResponse;
+import com.convert.dto.NumberRangeToRomanResponse;
 import com.convert.romannumeral.validator.NumberValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Contains business logic to convert integer to roman numeral
@@ -33,7 +36,7 @@ public class IntegerToRomanNumberServiceImpl implements IntegerToRomanNumberServ
      * @return Map<String, Object> Returns given input & calculated roman numeral
      */
     @Override
-    public Map<String, Object> convertIntegerToRomanNumber(final Integer number) {
+    public IntegerToRomanResponse convertIntegerToRomanNumber(final Integer number) {
         LOGGER.info(" Entering Method  convertIntegerToRomanNumber in service ");
         this.numberValidator.validate(number);
         final long startTime = System.currentTimeMillis();
@@ -48,18 +51,23 @@ public class IntegerToRomanNumberServiceImpl implements IntegerToRomanNumberServ
         final long endTime = System.currentTimeMillis();
         LOGGER.info(" Total Time taken for convertIntegerToRomanNumber in IntegerToRomanNumberServiceImpl  is ----> {} ,{}", (endTime - startTime), "ms");
         LOGGER.info(" Exiting Method  convertIntegerToRomanNumber in service");
-        return Map.of("input", String.valueOf(number), "output", romanLiterals.toString());
+        IntegerToRomanResponse queryResponse = new IntegerToRomanResponse(String.valueOf(number), romanLiterals.toString());
+        return queryResponse;
+        // return new NumberRangeToRomanResponse(Arrays.asList(queryResponse));
+        // return Map.of("input", String.valueOf(number), "output", romanLiterals.toString());
     }
 
     @Override
-    public Map<String, Object> convertIntegerRangeToRomanNumber(final Integer min, final Integer max) {
+    public NumberRangeToRomanResponse convertIntegerRangeToRomanNumber(final Integer min, final Integer max) {
         LOGGER.info(" Entering Method  convertIntegerRangeToRomanNumber in service ");
         this.numberValidator.validate(min, max);
         final long startTime = System.currentTimeMillis();
-        //TODO logic
-        final long endTime = System.currentTimeMillis();
-        LOGGER.info(" Total Time taken for convertIntegerRangeToRomanNumber in IntegerToRomanNumberServiceImpl  is ----> {} ,{}", (endTime - startTime), "ms");
-        LOGGER.info(" Exiting Method  convertIntegerRangeToRomanNumber in service");
         return null;
+    }
+
+    @Async
+    public CompletableFuture<IntegerToRomanResponse> convertIntegerRangeToRomanNumerals(final Integer start) {
+        return CompletableFuture.completedFuture(this.convertIntegerToRomanNumber(start));
+
     }
 }
