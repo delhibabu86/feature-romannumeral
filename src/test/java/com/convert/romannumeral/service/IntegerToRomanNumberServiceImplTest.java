@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutionException;
  * @author dvengambhanumoorthy
  */
 @ExtendWith(MockitoExtension.class)
-public class IntegerToRomanNumberServiceImplTest {
+class IntegerToRomanNumberServiceImplTest {
     @InjectMocks
     IntegerToRomanNumberServiceImpl integerToRomanNumberService;
     @Mock

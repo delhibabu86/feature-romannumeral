@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author dvengambhanumoorthy
  */
 @ExtendWith(MockitoExtension.class)
-public class CommonGlobalExceptionHandlerTest {
+class CommonGlobalExceptionHandlerTest {
     @InjectMocks
     CommonGlobalExceptionHandler commonGlobalExceptionHandler;
     @Mock

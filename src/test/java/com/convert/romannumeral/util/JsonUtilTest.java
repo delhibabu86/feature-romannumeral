@@ -13,7 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
  * @author dvengambhanumoorthy
  */
 @ExtendWith(MockitoExtension.class)
-public class JsonUtilTest {
+class JsonUtilTest {
     @InjectMocks
     JsonUtils jsonUtils;
 

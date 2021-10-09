@@ -15,7 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
  * @author dvengambhanumoorthy
  */
 @ExtendWith(MockitoExtension.class)
-public class NumberValidatorTest {
+class NumberValidatorTest {
     @InjectMocks
     NumberValidator numberValidator;
 

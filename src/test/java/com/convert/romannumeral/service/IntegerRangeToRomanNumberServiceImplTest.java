@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
  * @author dvengambhanumoorthy
  */
 @ExtendWith(MockitoExtension.class)
-public class IntegerRangeToRomanNumberServiceImplTest {
+class IntegerRangeToRomanNumberServiceImplTest {
     @InjectMocks
     IntegerRangeToRomanNumberServiceImpl integerRangeToRomanNumberService;
     @Mock

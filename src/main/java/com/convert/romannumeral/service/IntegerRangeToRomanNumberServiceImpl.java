@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  */
 @Service
 public class IntegerRangeToRomanNumberServiceImpl implements IntegerRangeToRomanNumberService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(IntegerToRomanNumberServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(IntegerRangeToRomanNumberServiceImpl.class);
     private final NumberValidator numberValidator;
     private final IntegerToRomanNumberService integerToRomanNumberService;
 
@@ -50,11 +50,10 @@ public class IntegerRangeToRomanNumberServiceImpl implements IntegerRangeToRoman
             completableFuturesList.add(this.integerToRomanNumberService.convertAsyncIntegerToRomanNumber(start));
         }
         final CompletableFuture<Void> allOfCompletableFuture = CompletableFuture.allOf(completableFuturesList.toArray(new CompletableFuture[0]));
-        final CompletableFuture<List<IntegerToRomanResponse>> listCompletableFuture = allOfCompletableFuture.thenApply(record ->
+        final CompletableFuture<List<IntegerToRomanResponse>> listCompletableFuture = allOfCompletableFuture.thenApply(result ->
                 completableFuturesList.stream().map(CompletableFuture::join)
                         .collect(Collectors.toList()));
         List<IntegerToRomanResponse> integerToRomanResponseList = listCompletableFuture.join();
-        // Collections.sort(integerToRomanResponseList);
         final long endTime = System.currentTimeMillis();
         integerToRomanResponseList.sort(Comparator.comparing(IntegerToRomanResponse::getInput));
         LOGGER.info(" Exiting Method  convertIntegerRangeToRomanNumber in service");

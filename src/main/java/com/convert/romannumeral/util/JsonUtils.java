@@ -13,6 +13,9 @@ import org.slf4j.LoggerFactory;
 public final class JsonUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonUtils.class);
 
+    private JsonUtils(){
+
+    }
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
             .registerModule(new JavaTimeModule());
 
