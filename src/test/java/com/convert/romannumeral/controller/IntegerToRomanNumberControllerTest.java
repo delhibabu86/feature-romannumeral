@@ -1,17 +1,11 @@
 package com.convert.romannumeral.controller;
 
-import com.convert.romannumeral.dto.NumberRangeToRomanResponse;
 import com.convert.romannumeral.service.IntegerToRomanNumberService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import static org.mockito.Mockito.when;
 
 /**
  * @author dvengambhanumoorthy
@@ -42,11 +36,11 @@ class IntegerToRomanNumberControllerTest {
         final ConstraintViolationException constraintViolationException = assertThrows(ConstraintViolationException.class, () -> this.integerToRomanNumberController.convertIntegerToRomanNumber(-1, -2, -3));
     }*/
 
-    @Test
+   /* @Test
     void convertIntegerToRomanNumber_queryParam_present_success() {
         when(this.integerToRomanNumberService.convertIntegerToRomanNumber(ArgumentMatchers.anyInt())).thenReturn(null);
         final NumberRangeToRomanResponse numberRangeToRomanResponse = this.integerToRomanNumberController.convertIntegerToRomanNumber(10, null, null);
         Assertions.assertNull(numberRangeToRomanResponse);
-    }
+    }*/
 
 }

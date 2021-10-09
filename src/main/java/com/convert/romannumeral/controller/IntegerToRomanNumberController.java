@@ -1,8 +1,8 @@
 package com.convert.romannumeral.controller;
 
 import com.convert.romannumeral.dto.IntegerToRomanResponse;
-import com.convert.romannumeral.dto.NumberRangeToRomanResponse;
 import com.convert.romannumeral.model.ErrorResponse;
+import com.convert.romannumeral.service.IntegerRangeToRomanNumberServiceImpl;
 import com.convert.romannumeral.service.IntegerToRomanNumberService;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.ObjectUtils;
@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 /**
- * Spring Rest Controller - convert Integer to Roman Numeral
+ * Spring Rest Controller - Rest API to convert Integer to Roman Numeral
  * Design Principle - Single Responsibility Principle
  *
  * @author dvengambhanumoorthy
@@ -26,11 +28,16 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @Api("Integer to Roman Numeral API")
 public class IntegerToRomanNumberController {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(IntegerToRomanNumberController.class);
     private final IntegerToRomanNumberService integerToRomanNumberService;
+    private final IntegerRangeToRomanNumberServiceImpl integerRangeToRomanNumberService;
 
-    public IntegerToRomanNumberController(final IntegerToRomanNumberService integerToRomanNumberService) {
+
+    public IntegerToRomanNumberController(final IntegerToRomanNumberService integerToRomanNumberService,
+                                          final IntegerRangeToRomanNumberServiceImpl integerRangeToRomanNumberService) {
         this.integerToRomanNumberService = integerToRomanNumberService;
+        this.integerRangeToRomanNumberService = integerRangeToRomanNumberService;
     }
 
     /**
@@ -47,7 +54,7 @@ public class IntegerToRomanNumberController {
             @ApiResponse(code = 400, message = "Bad Request - Invalid Number range", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorResponse.class)
     })
-    public NumberRangeToRomanResponse convertIntegerToRomanNumber(
+    public Map<String, Object> convertIntegerToRomanNumber(
             @ApiParam(name = "query", type = "Integer", value = "Integer range [1-3999]")
             @RequestParam(value = "query", required = false) Integer query,
             @ApiParam(name = "max", type = "Integer", value = "greater than min.Integer range [1-3999]")
@@ -60,11 +67,10 @@ public class IntegerToRomanNumberController {
             final IntegerToRomanResponse response = this.integerToRomanNumberService.convertIntegerToRomanNumber(query);
             final long endTime = System.currentTimeMillis();
             LOGGER.info(" Total time taken for GET API /romannumeral with query param is ----> {} {}", (endTime - startTime), "ms");
-            return null;
-            // return response;
+            return Map.of("input", response.getInput(), "output", response.getOutput());
         }
 
-        final NumberRangeToRomanResponse response = this.integerToRomanNumberService.convertIntegerRangeToRomanNumber(min, max);
+        final Map<String, Object> response = this.integerRangeToRomanNumberService.convertIntegerRangeToRomanNumber(min, max);
         final long endTime = System.currentTimeMillis();
         LOGGER.info(" Total time taken for GET API /romannumeral with range param is ----> {} {}", (endTime - startTime), "ms");
         return response;
