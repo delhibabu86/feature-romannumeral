@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @SpringBootTest(classes = RomanNumberApplication.class)
 @AutoConfigureMockMvc
-class IRomanNumberApplicationTest {
+class RomanNumberApplicationITest {
 
     @Autowired
     MockMvc mockMvc;
