@@ -1,6 +1,6 @@
 version: '3'
 services:
-  web:
+  romannumeral:
     build:
       context: .
     ports:
@@ -27,9 +27,39 @@ services:
     volumes:
       - postgresql:/var/lib/postgresql
       - postgresql_data:/var/lib/postgresql/data
+  prometheus:
+    image: prom/prometheus
+    hostname: prometheus
+    depends_on:
+      - romannumeral
+    ports:
+      - 9090:9090
+    volumes:
+      - ./metrics/prometheus:/etc/prometheus
+      - prometheus-data:/prometheus
+    command: '--config.file=/etc/prometheus/prometheus.yml'
+  datadog:
+    image: datadog/agent:latest
+    container_name: datadog
+    ports:
+      - "8125:8125/udp"
+    links:
+      - romannumeral
+    environment:
+      - DD_API_KEY= a314f8263094d32263fbfc3de90f6906
+      - DD_HOSTNAME=ROMANNUMBER
+      - DD_LOGS_ENABLED=true
+      - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
+      - DD_CONTAINER_EXCLUDE_LOGS="name:datadog-agent"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
+
 volumes:
   sonarqube_data:
   sonarqube_extensions:
   sonarqube_logs:
   postgresql:
   postgresql_data:
+  prometheus-data:
