@@ -14,7 +14,7 @@ API Contract & Design : http://localhost:8080/swagger-ui.html
 
 ## Summary
 
-- [How to build & run project ?](#build-run-project)
+- [How to build & run project](#how-to-build--run-project-)
 - [Development Stack](#engineering-stack)
 - [Test Stack](#test-stack)
 - [Monitoring & Metrics Stack](#monitoring-metrics-stack)
