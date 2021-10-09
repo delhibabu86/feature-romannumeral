@@ -2,7 +2,7 @@ package com.convert.romannumeral.controller;
 
 import com.convert.romannumeral.dto.IntegerToRomanResponse;
 import com.convert.romannumeral.model.ErrorResponse;
-import com.convert.romannumeral.service.IntegerRangeToRomanNumberServiceImpl;
+import com.convert.romannumeral.service.IntegerRangeToRomanNumberService;
 import com.convert.romannumeral.service.IntegerToRomanNumberService;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.ObjectUtils;
@@ -32,11 +32,11 @@ public class IntegerToRomanNumberController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IntegerToRomanNumberController.class);
     private final IntegerToRomanNumberService integerToRomanNumberService;
-    private final IntegerRangeToRomanNumberServiceImpl integerRangeToRomanNumberService;
+    private final IntegerRangeToRomanNumberService integerRangeToRomanNumberService;
 
 
     public IntegerToRomanNumberController(final IntegerToRomanNumberService integerToRomanNumberService,
-                                          final IntegerRangeToRomanNumberServiceImpl integerRangeToRomanNumberService) {
+                                          final IntegerRangeToRomanNumberService integerRangeToRomanNumberService) {
         this.integerToRomanNumberService = integerToRomanNumberService;
         this.integerRangeToRomanNumberService = integerRangeToRomanNumberService;
     }
