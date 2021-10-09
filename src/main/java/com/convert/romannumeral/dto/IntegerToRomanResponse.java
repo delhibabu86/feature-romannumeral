@@ -15,6 +15,12 @@ public class IntegerToRomanResponse implements Serializable {
     private final String input;
     private final String output;
 
+    public IntegerToRomanResponse() {
+        super();
+        this.input = null;
+        this.output = null;
+    }
+
     public IntegerToRomanResponse(final String input, final String output) {
         this.input = input;
         this.output = output;

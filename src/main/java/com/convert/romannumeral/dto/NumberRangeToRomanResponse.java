@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,8 +17,9 @@ public class NumberRangeToRomanResponse implements Serializable {
 
     private final List<IntegerToRomanResponse> conversions;
 
-    public NumberRangeToRomanResponse(final List<IntegerToRomanResponse> conversions) {
-        this.conversions = conversions;
+    public NumberRangeToRomanResponse() {
+        super();
+        this.conversions = new ArrayList<>();
     }
 
     public List<IntegerToRomanResponse> getConversions() {

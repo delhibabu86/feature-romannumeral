@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -67,7 +68,10 @@ public class IntegerToRomanNumberController {
             final IntegerToRomanResponse response = this.integerToRomanNumberService.convertIntegerToRomanNumber(query);
             final long endTime = System.currentTimeMillis();
             LOGGER.info(" Total time taken for GET API /romannumeral with query param is ----> {} {}", (endTime - startTime), "ms");
-            return Map.of("input", response.getInput(), "output", response.getOutput());
+            Map<String, Object> romanNumberOutput = new LinkedHashMap<>();
+            romanNumberOutput.put("input", response.getInput());
+            romanNumberOutput.put("output", response.getOutput());
+            return romanNumberOutput;
         }
 
         final Map<String, Object> response = this.integerRangeToRomanNumberService.convertIntegerRangeToRomanNumber(min, max);

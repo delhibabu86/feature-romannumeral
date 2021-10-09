@@ -11,10 +11,5 @@ class RomanNumberApplicationTest {
     @Test
     void contextLoads() {
     }
-
-   /* @Test
-    public void main() {
-        RomanNumberApplication.main(new String[]{});
-    }*/
 }
 

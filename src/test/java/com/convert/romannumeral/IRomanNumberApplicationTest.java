@@ -1,6 +1,6 @@
-package com.convert;
+package com.convert.romannumeral;
 
-import com.convert.romannumeral.RomanNumberApplication;
+import com.convert.romannumeral.dto.IntegerToRomanResponse;
 import com.convert.romannumeral.dto.NumberRangeToRomanResponse;
 import com.convert.romannumeral.enums.ErrorMessage;
 import com.convert.romannumeral.model.ErrorResponse;
@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Integration test
+ * Integration test implemented with Spring Boot
  *
  * @author dvengambhanumoorthy
  */
@@ -32,8 +32,7 @@ public class IRomanNumberApplicationTest {
     @Autowired
     MockMvc mockMvc;
 
-    //TODO enable after implementing functionality
-   /* @WithMockUser("admin")
+    @WithMockUser("admin")
     @Test
     void convertIntegerToRomanNumber_queryParamAlone_successScenario() throws Exception {
         final RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/romannumeral?query=1234").accept(MediaType.APPLICATION_JSON);
@@ -42,17 +41,18 @@ public class IRomanNumberApplicationTest {
         Assertions.assertNotNull(mvcResult);
         Assertions.assertNotNull(integerToRomanResponse);
         Assertions.assertEquals("1234", integerToRomanResponse.getInput());
-        Assertions.assertEquals("", integerToRomanResponse.getOutput());
-    }*/
+        Assertions.assertEquals("MCCXXXIV", integerToRomanResponse.getOutput());
+    }
 
     @WithMockUser("admin")
     @Test
     void convertIntegerToRomanNumber_range_successScenario() throws Exception {
-        final RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/romannumeral?min=1234&max=3234").accept(MediaType.APPLICATION_JSON);
+        final RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/romannumeral?min=3212&max=3234").accept(MediaType.APPLICATION_JSON);
         final MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andExpect(status().isOk()).andReturn();
         final NumberRangeToRomanResponse numberRangeToRomanResponse = JsonUtils.readValue(mvcResult.getResponse().getContentAsString(), NumberRangeToRomanResponse.class);
         Assertions.assertNotNull(mvcResult);
         Assertions.assertNotNull(numberRangeToRomanResponse);
+        Assertions.assertEquals(23,numberRangeToRomanResponse.getConversions().size());
     }
 
     @WithMockUser("admin")
