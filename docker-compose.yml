@@ -27,17 +27,6 @@ services:
     volumes:
       - postgresql:/var/lib/postgresql
       - postgresql_data:/var/lib/postgresql/data
-  prometheus:
-    image: prom/prometheus
-    hostname: prometheus
-    depends_on:
-      - romannumeral
-    ports:
-      - 9090:9090
-    volumes:
-      - ./metrics/prometheus:/etc/prometheus
-      - prometheus-data:/prometheus
-    command: '--config.file=/etc/prometheus/prometheus.yml'
   datadog:
     image: datadog/agent:latest
     container_name: datadog

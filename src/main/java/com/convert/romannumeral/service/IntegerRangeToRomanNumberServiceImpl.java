@@ -6,10 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -55,7 +52,7 @@ public class IntegerRangeToRomanNumberServiceImpl implements IntegerRangeToRoman
                         .collect(Collectors.toList()));
         List<IntegerToRomanResponse> integerToRomanResponseList = listCompletableFuture.join();
         final long endTime = System.currentTimeMillis();
-        integerToRomanResponseList.sort(Comparator.comparing(IntegerToRomanResponse::getInput));
+        Collections.sort(integerToRomanResponseList);
         LOGGER.info(" Exiting Method  convertIntegerRangeToRomanNumber in service");
         LOGGER.info(" Total Time taken for convertIntegerRangeToRomanNumber in IntegerToRomanNumberServiceImpl  is ----> {} {}", (endTime - startTime), "ms");
         return Map.of("conversions", integerToRomanResponseList);

@@ -20,12 +20,14 @@ import java.util.List;
  */
 class DtoPackageTest {
 
+    private IntegerToRomanResponse integerToRomanResponse;
     private List<PojoClass> pojoClasses;
 
     @BeforeEach
     public void _setup() {
         this.pojoClasses = PojoClassFactory.getPojoClasses(this.getClass().getPackage().getName(),
                 new FilterPackageInfo());
+        this.integerToRomanResponse = new IntegerToRomanResponse("6", "VI");
     }
 
     @Test
@@ -41,5 +43,12 @@ class DtoPackageTest {
                 ValidationHelper.getMostCompleteInstance(pojoClass).toString();
             }
         }
+    }
+
+    @Test
+    void test_compare() {
+        final IntegerToRomanResponse request = new IntegerToRomanResponse("10", "X");
+        final int i = this.integerToRomanResponse.compareTo(request);
+        System.out.println(i);
     }
 }

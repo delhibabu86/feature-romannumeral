@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * @author dvengambhanumoorthy
  */
-public class IntegerToRomanResponse implements Serializable {
+public class IntegerToRomanResponse implements Comparable<IntegerToRomanResponse>,Serializable {
     @Serial
     private static final long serialVersionUID = -1849589829774299452L;
     private final String input;
@@ -37,5 +37,10 @@ public class IntegerToRomanResponse implements Serializable {
     @Override
     public String toString() {
         return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
+    }
+
+    @Override
+    public int compareTo(final IntegerToRomanResponse o) {
+        return (Integer.valueOf(this.input)).compareTo(Integer.valueOf(o.input));
     }
 }
