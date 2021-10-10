@@ -17,8 +17,9 @@ API Contract & Design : http://localhost:8080/swagger-ui.html
 - [How to build & run project](#how-to-build--run-project-)
 - [Development Stack](#development-stack)
 - [Test Stack](#test-stack)
-- [Monitoring & Metrics Stack](#monitoring--metrics-stack)
+- [Monitoring & Metrics Tools](#monitoring--metrics-stack)
 - [Project Structure](#project-structure)
+- [Dependency Tree](#dependency-tree)  
 - [API samples](#api-samples)
 - [Testing](#testing)
 - [Tools Enablement](#tools-enablement)
@@ -33,21 +34,10 @@ API Contract & Design : http://localhost:8080/swagger-ui.html
 * Make sure all the docker containers have started successfully
 * Validate if all docker services are up & running
 
-## Run Locally
-
-* execute docker stop
-* Choose either step 3 or step4
-* Option 1 - Start the application from IntelliJ/Eclipse
-* Option 2 -  
-              a)  To run from terminal, do mvn clean install first.
-              b) java -jar target/roman-numeral-0.0.1-SNAPSHOT.jar
-* Hit swagger end point & confirm services are up & running.
-
 ## Run with docker
 
-docker build -t roman-numeral:0.0.1 .
-
-docker run --net=host
+*Start docker compose : docker-compose up --build --force-recreate
+*Ensure all services are up : docker-compose ps
 
 ## Development Stack
 
@@ -62,19 +52,28 @@ docker run --net=host
 
 * Junit5
 * Mockito
+* SpringBootTest
 
 ## Monitoring & Metrics Stack
 
-* spring actuator
-* datadog
+* Actuator
+* Prometheus
+* Datadog
 
 ## Project Structure
+
+![](assets/ProjectStructure.png)
+
+## Dependency Tree
+![](assets/dependencytree_1.png)
+![](assets/dependencytree_image2.png)
+
 
 ## API samples
 
 ## Testing
 
-## Tools Enablement
+## Tools Enablement/Setup
 
 ## References
 
