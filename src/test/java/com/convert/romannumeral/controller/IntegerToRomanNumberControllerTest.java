@@ -3,6 +3,7 @@ package com.convert.romannumeral.controller;
 import com.convert.romannumeral.dto.IntegerToRomanResponse;
 import com.convert.romannumeral.service.IntegerRangeToRomanNumberService;
 import com.convert.romannumeral.service.IntegerToRomanNumberService;
+import com.convert.romannumeral.validator.NumberValidator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,11 +31,16 @@ class IntegerToRomanNumberControllerTest {
     IntegerToRomanNumberService integerToRomanNumberService;
     @Mock
     IntegerRangeToRomanNumberService integerRangeToRomanNumberService;
+    @Mock
+    NumberValidator numberValidator;
 
     @Test
     void convertIntegerToRomanNumber_queryParam_query_present_success() {
         final Map<String, Object> expected = Map.of("input", "10", "output", "X");
         final IntegerToRomanResponse integerToRomanResponse = new IntegerToRomanResponse("10", "X");
+        when(this.numberValidator.validate(ArgumentMatchers.anyInt(),
+                ArgumentMatchers.any(), ArgumentMatchers.any()))
+                .thenReturn(Boolean.TRUE);
         when(this.integerToRomanNumberService.convertIntegerToRomanNumber(ArgumentMatchers.anyInt())).thenReturn(integerToRomanResponse);
         final Map<String, Object> actualResponse = this.integerToRomanNumberController.convertIntegerToRomanNumber(10, null, null);
         Assertions.assertNotNull(actualResponse);
@@ -49,12 +55,25 @@ class IntegerToRomanNumberControllerTest {
         integerToRomanResponseList.add(response);
         integerToRomanResponseList.add(response1);
         final Map<String, Object> expected = Map.of("conversions", integerToRomanResponseList);
+        when(this.numberValidator.validate(ArgumentMatchers.any(),
+                ArgumentMatchers.anyInt(), ArgumentMatchers.anyInt()))
+                .thenReturn(Boolean.TRUE);
         when(this.integerRangeToRomanNumberService.convertIntegerRangeToRomanNumber(
                 ArgumentMatchers.anyInt(), ArgumentMatchers.anyInt()))
                 .thenReturn(Map.of("conversions", integerToRomanResponseList));
         final Map<String, Object> actualResponse = this.integerToRomanNumberController.convertIntegerToRomanNumber(null, 10, 11);
         Assertions.assertNotNull(actualResponse);
         Assertions.assertEquals(expected, actualResponse);
+    }
+
+    @Test
+    void convertIntegerToRomanNumber_noQueryParam() {
+
+        when(this.numberValidator.validate(ArgumentMatchers.any(),
+                ArgumentMatchers.anyInt(), ArgumentMatchers.anyInt()))
+                .thenReturn(Boolean.FALSE);
+        final Map<String, Object> actualResponse = this.integerToRomanNumberController.convertIntegerToRomanNumber(null, 10, 11);
+        Assertions.assertNull(actualResponse);
     }
 
 }

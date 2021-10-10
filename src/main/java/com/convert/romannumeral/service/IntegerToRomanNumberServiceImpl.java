@@ -36,8 +36,10 @@ public class IntegerToRomanNumberServiceImpl implements IntegerToRomanNumberServ
      */
     @Override
     public IntegerToRomanResponse convertIntegerToRomanNumber(final Integer number) {
-        LOGGER.info(" Entering Method  convertIntegerToRomanNumber in service ");
+        LOGGER.debug(" Entering Method  convertIntegerToRomanNumber in service ");
+
         this.numberValidator.validate(number);
+
         final long startTime = System.currentTimeMillis();
         final StringBuilder romanLiterals = new StringBuilder();
         int value = number;
@@ -49,14 +51,17 @@ public class IntegerToRomanNumberServiceImpl implements IntegerToRomanNumberServ
         }
         final long endTime = System.currentTimeMillis();
         LOGGER.info(" Total Time taken for convertIntegerToRomanNumber in IntegerToRomanNumberServiceImpl  is ----> {} ,{}", (endTime - startTime), "ms");
-        LOGGER.info(" Exiting Method  convertIntegerToRomanNumber in service");
+        LOGGER.debug(" Exiting Method  convertIntegerToRomanNumber in service");
         return new IntegerToRomanResponse(String.valueOf(number), romanLiterals.toString());
     }
 
     @Override
     @Async
     public CompletableFuture<IntegerToRomanResponse> convertAsyncIntegerToRomanNumber(final Integer number) {
-        return CompletableFuture.completedFuture(this.convertIntegerToRomanNumber(number));
+        LOGGER.debug(" Entering Method  convertAsyncIntegerToRomanNumber in service ");
+        final CompletableFuture<IntegerToRomanResponse> completableFuture = CompletableFuture.completedFuture(this.convertIntegerToRomanNumber(number));
+        LOGGER.debug(" Exiting Method  convertAsyncIntegerToRomanNumber in service ");
+        return completableFuture;
     }
 
 

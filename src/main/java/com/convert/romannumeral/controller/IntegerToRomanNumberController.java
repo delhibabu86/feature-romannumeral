@@ -4,6 +4,7 @@ import com.convert.romannumeral.dto.IntegerToRomanResponse;
 import com.convert.romannumeral.model.ErrorResponse;
 import com.convert.romannumeral.service.IntegerRangeToRomanNumberService;
 import com.convert.romannumeral.service.IntegerToRomanNumberService;
+import com.convert.romannumeral.validator.NumberValidator;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
@@ -33,15 +34,22 @@ public class IntegerToRomanNumberController {
     private static final Logger LOGGER = LoggerFactory.getLogger(IntegerToRomanNumberController.class);
     private final IntegerToRomanNumberService integerToRomanNumberService;
     private final IntegerRangeToRomanNumberService integerRangeToRomanNumberService;
+    private final NumberValidator numberValidator;
 
 
     public IntegerToRomanNumberController(final IntegerToRomanNumberService integerToRomanNumberService,
-                                          final IntegerRangeToRomanNumberService integerRangeToRomanNumberService) {
+                                          final IntegerRangeToRomanNumberService integerRangeToRomanNumberService,
+                                          final NumberValidator numberValidator) {
         this.integerToRomanNumberService = integerToRomanNumberService;
         this.integerRangeToRomanNumberService = integerRangeToRomanNumberService;
+        this.numberValidator = numberValidator;
     }
 
     /**
+     * Handling 3 scenarios :
+     * 1) Only query is searched by user in the query param, then the corresponding roman numeral sent out
+     * 2) Only min & max searched by user, corresponding roman numeral shared
+     *
      * @param query Integer number entered by user to identify corresponding roman numeral
      * @param min   Minimum range param entered by user to identify corresponding roman numeral
      * @param max   Maximum range param entered by user to identify corresponding roman numeral
@@ -62,23 +70,36 @@ public class IntegerToRomanNumberController {
             @RequestParam(value = "max", required = false) Integer max,
             @ApiParam(name = "min", type = "Integer", value = "less than max.Integer range [1-3999]")
             @RequestParam(value = "min", required = false) Integer min) {
-        final long startTime = System.currentTimeMillis();
-        LOGGER.info(" Incoming Request ----> {} ", query);
-        if (ObjectUtils.isNotEmpty(query)) {
-            final IntegerToRomanResponse response = this.integerToRomanNumberService.convertIntegerToRomanNumber(query);
-            final long endTime = System.currentTimeMillis();
-            LOGGER.info(" Total time taken for GET API /romannumeral with query param is ----> {} {}", (endTime - startTime), "ms");
-            Map<String, Object> romanNumberOutput = new LinkedHashMap<>();
-            romanNumberOutput.put("input", response.getInput());
-            romanNumberOutput.put("output", response.getOutput());
-            return romanNumberOutput;
+
+        LOGGER.info(" Incoming Request query min max ----> {} {} {} ", query, min, max);
+
+        boolean isValid = this.numberValidator.validate(query, min, max);
+
+        if (isValid) {
+            if (ObjectUtils.isNotEmpty(query)) {
+
+                final long startTime = System.currentTimeMillis();
+                final IntegerToRomanResponse response = this.integerToRomanNumberService.convertIntegerToRomanNumber(query);
+                final long endTime = System.currentTimeMillis();
+
+                final Map<String, Object> romanNumberOutput = new LinkedHashMap<>();
+                romanNumberOutput.put("input", response.getInput());
+                romanNumberOutput.put("output", response.getOutput());
+
+                LOGGER.info(" Total time taken for GET API /romannumeral with query param is ----> {} {}", (endTime - startTime), "ms");
+                return romanNumberOutput;
+
+            } else {
+                final long startTime = System.currentTimeMillis();
+                final Map<String, Object> response = this.integerRangeToRomanNumberService.convertIntegerRangeToRomanNumber(min, max);
+                final long endTime = System.currentTimeMillis();
+
+                LOGGER.info(" Total time taken for GET API /romannumeral with range param is ----> {} {}", (endTime - startTime), "ms");
+                return response;
+            }
         }
 
-        final Map<String, Object> response = this.integerRangeToRomanNumberService.convertIntegerRangeToRomanNumber(min, max);
-        final long endTime = System.currentTimeMillis();
-        LOGGER.info(" Total time taken for GET API /romannumeral with range param is ----> {} {}", (endTime - startTime), "ms");
-        return response;
-
+        return null;
     }
 
 }

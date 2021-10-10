@@ -93,4 +93,39 @@ class NumberValidatorTest {
     void test_validateRangeField_success() {
         this.numberValidator.validate(10, 11);
     }
+
+    @Test
+    void test_validate_QueryPresent_minAndMaxPresent() {
+        Assertions.assertThrows(UserInputException.class, () -> this.numberValidator.validate(10, 12, 13));
+    }
+
+    @Test
+    void test_validate_QueryPresent_minPresentAndMaxNotPresent() {
+        Assertions.assertThrows(UserInputException.class, () -> this.numberValidator.validate(10, 12, null));
+    }
+
+    @Test
+    void test_validate_QueryPresent_minNotPresentAndMaxPresent() {
+        Assertions.assertThrows(UserInputException.class, () -> this.numberValidator.validate(10, null, 12));
+    }
+
+    @Test
+    void test_validate_QueryNotPresent_minAndMax_Present() {
+        Assertions.assertTrue(numberValidator.validate(null, 12, 13));
+    }
+
+    @Test
+    void test_validate_QueryNotPresent_minPresentAndMaxNotPresent() {
+        Assertions.assertThrows(UserInputException.class, () -> this.numberValidator.validate(10, 12, null));
+    }
+
+    @Test
+    void test_validate_QueryNotPresent_minNotPresentAndMaxPresent() {
+        Assertions.assertThrows(UserInputException.class, () -> this.numberValidator.validate(null, null, 24));
+    }
+
+    @Test
+    void test_validate_QueryNotPresent_minAndMax_NotPresent() {
+        Assertions.assertThrows(UserInputException.class, () -> this.numberValidator.validate(null, null, null));
+    }
 }
