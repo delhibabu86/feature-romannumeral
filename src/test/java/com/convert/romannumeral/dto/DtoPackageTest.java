@@ -58,14 +58,12 @@ class DtoPackageTest {
     void test_equals() {
         final IntegerToRomanResponse request = new IntegerToRomanResponse("10", "X");
         final boolean response = this.integerToRomanResponse.equals(request);
-        Assertions.assertNotNull(response);
         Assertions.assertFalse(response);
     }
 
     @Test
     void test_hashcode() {
         final int response = this.integerToRomanResponse.hashCode();
-        Assertions.assertNotNull(response);
         Assertions.assertEquals(5374, response);
     }
 }
