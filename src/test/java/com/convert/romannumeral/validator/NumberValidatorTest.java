@@ -40,21 +40,6 @@ class NumberValidatorTest {
     }
 
     @Test
-    void test_validateRangeField_not_present() {
-        Assertions.assertThrows(UserInputQueryParamMissingException.class, () -> this.numberValidator.validate(null, null));
-    }
-
-    @Test
-    void test_validateRangeField_minPresent_maxNotPresent() {
-        Assertions.assertThrows(UserInputQueryParamMissingException.class, () -> this.numberValidator.validate(10, null));
-    }
-
-    @Test
-    void test_validateRangeField_minNotPresent_maxPresent() {
-        Assertions.assertThrows(UserInputQueryParamMissingException.class, () -> this.numberValidator.validate(null, 10));
-    }
-
-    @Test
     void test_validateRangeField_present_minAndMaxInvalid() {
         Assertions.assertThrows(UserInputException.class, () -> this.numberValidator.validate(0, 4500));
     }
@@ -109,28 +94,28 @@ class NumberValidatorTest {
         Assertions.assertThrows(UserInputException.class, () -> this.numberValidator.validate(10, null, 12));
     }
 
-    @Test
-    void test_validate_QueryNotPresent_minAndMax_Present() {
-        Assertions.assertTrue(numberValidator.validate(null, 12, 13));
+    @Test()
+    void test_validate_QueryPresent_minAndMaxNotPresent() {
+        Assertions.assertDoesNotThrow(() -> this.numberValidator.validate(10, null, null));
     }
 
     @Test
     void test_validate_QueryNotPresent_minPresentAndMaxNotPresent() {
-        Assertions.assertThrows(UserInputException.class, () -> this.numberValidator.validate(10, 12, null));
+        Assertions.assertThrows(UserInputQueryParamMissingException.class, () -> this.numberValidator.validate(null, 12, null));
     }
 
     @Test
     void test_validate_QueryNotPresent_minNotPresentAndMaxPresent() {
-        Assertions.assertThrows(UserInputException.class, () -> this.numberValidator.validate(null, null, 24));
+        Assertions.assertThrows(UserInputQueryParamMissingException.class, () -> this.numberValidator.validate(null, null, 24));
     }
 
     @Test
     void test_validate_QueryNotPresent_minAndMax_NotPresent() {
-        Assertions.assertThrows(UserInputException.class, () -> this.numberValidator.validate(null, null, null));
+        Assertions.assertThrows(UserInputQueryParamMissingException.class, () -> this.numberValidator.validate(null, null, null));
     }
 
     @Test
-    void test_validate_QueryPresent_minAndMaxNotPresent() {
-        Assertions.assertTrue(this.numberValidator.validate(10, null, null));
+    void test_validate_QueryNotPresent_minAndMax_Present() {
+        Assertions.assertDoesNotThrow(() -> this.numberValidator.validate(null, 10, 20));
     }
 }

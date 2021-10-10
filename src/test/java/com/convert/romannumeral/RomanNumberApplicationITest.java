@@ -63,8 +63,7 @@ class RomanNumberApplicationITest {
         final ErrorResponse errorResponse = JsonUtils.readValue(mvcResult.getResponse().getContentAsString(), ErrorResponse.class);
         Assertions.assertNotNull(mvcResult);
         Assertions.assertNotNull(errorResponse);
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getStatusCode());
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusDescription());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getCode());
         Assertions.assertEquals(ErrorMessage.INVALID_INPUT_PROVIDED.name(), errorResponse.getErrorCode());
         Assertions.assertEquals(ErrorMessage.INVALID_INPUT_PROVIDED.getMessage(), errorResponse.getErrors().get(0));
     }
@@ -77,8 +76,7 @@ class RomanNumberApplicationITest {
         final ErrorResponse errorResponse = JsonUtils.readValue(mvcResult.getResponse().getContentAsString(), ErrorResponse.class);
         Assertions.assertNotNull(mvcResult);
         Assertions.assertNotNull(errorResponse);
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getStatusCode());
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusDescription());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getCode());
         Assertions.assertEquals(ErrorMessage.MISSING_PARAMETER.name(), errorResponse.getErrorCode());
         Assertions.assertEquals("Both min & max parameter is missing ", errorResponse.getErrors().get(0));
     }
@@ -91,8 +89,7 @@ class RomanNumberApplicationITest {
         final ErrorResponse errorResponse = JsonUtils.readValue(mvcResult.getResponse().getContentAsString(), ErrorResponse.class);
         Assertions.assertNotNull(mvcResult);
         Assertions.assertNotNull(errorResponse);
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getStatusCode());
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusDescription());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getCode());
         Assertions.assertEquals(ErrorMessage.INVALID_NUMBER_RANGE.name(), errorResponse.getErrorCode());
         Assertions.assertEquals("query  - Invalid number range , please enter an integer number between 1 to 3999", errorResponse.getErrors().get(0));
     }
@@ -105,8 +102,7 @@ class RomanNumberApplicationITest {
         final ErrorResponse errorResponse = JsonUtils.readValue(mvcResult.getResponse().getContentAsString(), ErrorResponse.class);
         Assertions.assertNotNull(mvcResult);
         Assertions.assertNotNull(errorResponse);
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getStatusCode());
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusDescription());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getCode());
         Assertions.assertEquals(ErrorMessage.INVALID_NUMBER_RANGE.name(), errorResponse.getErrorCode());
         Assertions.assertEquals("query  - Invalid number range , please enter an integer number between 1 to 3999", errorResponse.getErrors().get(0));
     }
@@ -119,8 +115,7 @@ class RomanNumberApplicationITest {
         final ErrorResponse errorResponse = JsonUtils.readValue(mvcResult.getResponse().getContentAsString(), ErrorResponse.class);
         Assertions.assertNotNull(mvcResult);
         Assertions.assertNotNull(errorResponse);
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getStatusCode());
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusDescription());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getCode());
         Assertions.assertEquals(ErrorMessage.INPUT_TYPE_MISMATCH.name(), errorResponse.getErrorCode());
         Assertions.assertEquals(ErrorMessage.INPUT_TYPE_MISMATCH.getMessage(), errorResponse.getErrors().get(0));
     }
@@ -133,8 +128,7 @@ class RomanNumberApplicationITest {
         final ErrorResponse errorResponse = JsonUtils.readValue(mvcResult.getResponse().getContentAsString(), ErrorResponse.class);
         Assertions.assertNotNull(mvcResult);
         Assertions.assertNotNull(errorResponse);
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getStatusCode());
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusDescription());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getCode());
         Assertions.assertEquals(ErrorMessage.MISSING_PARAMETER.name(), errorResponse.getErrorCode());
         Assertions.assertEquals("max parameter is missing ", errorResponse.getErrors().get(0));
     }
@@ -147,8 +141,7 @@ class RomanNumberApplicationITest {
         final ErrorResponse errorResponse = JsonUtils.readValue(mvcResult.getResponse().getContentAsString(), ErrorResponse.class);
         Assertions.assertNotNull(mvcResult);
         Assertions.assertNotNull(errorResponse);
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getStatusCode());
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusDescription());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getCode());
         Assertions.assertEquals(ErrorMessage.MISSING_PARAMETER.name(), errorResponse.getErrorCode());
         Assertions.assertEquals("min parameter is missing ", errorResponse.getErrors().get(0));
     }
@@ -161,8 +154,7 @@ class RomanNumberApplicationITest {
         final ErrorResponse errorResponse = JsonUtils.readValue(mvcResult.getResponse().getContentAsString(), ErrorResponse.class);
         Assertions.assertNotNull(mvcResult);
         Assertions.assertNotNull(errorResponse);
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getStatusCode());
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusDescription());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getCode());
         Assertions.assertEquals(ErrorMessage.MIN_MAX_VALUE_INVALID.name(), errorResponse.getErrorCode());
         Assertions.assertEquals(ErrorMessage.MIN_MAX_VALUE_INVALID.getMessage(), errorResponse.getErrors().get(0));
     }
@@ -175,8 +167,7 @@ class RomanNumberApplicationITest {
         final ErrorResponse errorResponse = JsonUtils.readValue(mvcResult.getResponse().getContentAsString(), ErrorResponse.class);
         Assertions.assertNotNull(mvcResult);
         Assertions.assertNotNull(errorResponse);
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getStatusCode());
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusDescription());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getCode());
         Assertions.assertEquals(ErrorMessage.MIN_MAX_VALUE_INVALID.name(), errorResponse.getErrorCode());
         Assertions.assertEquals(ErrorMessage.MIN_MAX_VALUE_INVALID.getMessage(), errorResponse.getErrors().get(0));
     }
@@ -189,8 +180,7 @@ class RomanNumberApplicationITest {
         final ErrorResponse errorResponse = JsonUtils.readValue(mvcResult.getResponse().getContentAsString(), ErrorResponse.class);
         Assertions.assertNotNull(mvcResult);
         Assertions.assertNotNull(errorResponse);
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getStatusCode());
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusDescription());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getCode());
         Assertions.assertEquals(ErrorMessage.INVALID_NUMBER_RANGE.name(), errorResponse.getErrorCode());
         Assertions.assertEquals("min  - Invalid number range , please enter an integer number between 1 to 3999", errorResponse.getErrors().get(0));
     }
@@ -203,8 +193,7 @@ class RomanNumberApplicationITest {
         final ErrorResponse errorResponse = JsonUtils.readValue(mvcResult.getResponse().getContentAsString(), ErrorResponse.class);
         Assertions.assertNotNull(mvcResult);
         Assertions.assertNotNull(errorResponse);
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getStatusCode());
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusDescription());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getCode());
         Assertions.assertEquals(ErrorMessage.INVALID_NUMBER_RANGE.name(), errorResponse.getErrorCode());
         Assertions.assertEquals("max  - Invalid number range , please enter an integer number between 1 to 3999", errorResponse.getErrors().get(0));
     }
@@ -217,8 +206,7 @@ class RomanNumberApplicationITest {
         final ErrorResponse errorResponse = JsonUtils.readValue(mvcResult.getResponse().getContentAsString(), ErrorResponse.class);
         Assertions.assertNotNull(mvcResult);
         Assertions.assertNotNull(errorResponse);
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getStatusCode());
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusDescription());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getCode());
         Assertions.assertEquals(ErrorMessage.INVALID_NUMBER_RANGE.name(), errorResponse.getErrorCode());
         Assertions.assertEquals("min  - Invalid number range , please enter an integer number between 1 to 3999", errorResponse.getErrors().get(0));
     }
@@ -231,8 +219,7 @@ class RomanNumberApplicationITest {
         final ErrorResponse errorResponse = JsonUtils.readValue(mvcResult.getResponse().getContentAsString(), ErrorResponse.class);
         Assertions.assertNotNull(mvcResult);
         Assertions.assertNotNull(errorResponse);
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getStatusCode());
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusDescription());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getCode());
         Assertions.assertEquals(ErrorMessage.INVALID_NUMBER_RANGE.name(), errorResponse.getErrorCode());
         Assertions.assertEquals("max  - Invalid number range , please enter an integer number between 1 to 3999", errorResponse.getErrors().get(0));
     }
@@ -245,8 +232,8 @@ class RomanNumberApplicationITest {
         final ErrorResponse errorResponse = JsonUtils.readValue(mvcResult.getResponse().getContentAsString(), ErrorResponse.class);
         Assertions.assertNotNull(mvcResult);
         Assertions.assertNotNull(errorResponse);
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getStatusCode());
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusDescription());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getCode());
+
         Assertions.assertEquals(ErrorMessage.INPUT_TYPE_MISMATCH.name(), errorResponse.getErrorCode());
         Assertions.assertEquals(ErrorMessage.INPUT_TYPE_MISMATCH.getMessage(), errorResponse.getErrors().get(0));
     }
@@ -259,8 +246,7 @@ class RomanNumberApplicationITest {
         final ErrorResponse errorResponse = JsonUtils.readValue(mvcResult.getResponse().getContentAsString(), ErrorResponse.class);
         Assertions.assertNotNull(mvcResult);
         Assertions.assertNotNull(errorResponse);
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getStatusCode());
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusDescription());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getCode());
         Assertions.assertEquals(ErrorMessage.INPUT_TYPE_MISMATCH.name(), errorResponse.getErrorCode());
         Assertions.assertEquals(ErrorMessage.INPUT_TYPE_MISMATCH.getMessage(), errorResponse.getErrors().get(0));
     }
@@ -271,7 +257,7 @@ class RomanNumberApplicationITest {
         final RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/romannumeral?min=1&max=69876").accept(MediaType.APPLICATION_JSON);
         final MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andExpect(status().isBadRequest()).andReturn();
         System.out.println(mvcResult.getResponse().getContentAsString());
-        final String mockedResponse = "{\"statusField\":400,\"statusDescription\":\"BAD_REQUEST\",\"errorCode\":\"INVALID_NUMBER_RANGE\",\"errors\":[\"max  - Invalid number range , please enter an integer number between 1 to 3999\"]}";
+        final String mockedResponse = "{\"statusField\":400,\"statusCode\":\"400\",\"errorCode\":\"INVALID_NUMBER_RANGE\",\"errors\":[\"max  - Invalid number range , please enter an integer number between 1 to 3999\"]}";
         final ErrorResponse errorResponse = JsonUtils.readValue(mockedResponse, ErrorResponse.class);
 
         Assertions.assertNotNull(mvcResult);

@@ -29,44 +29,38 @@ public class NumberValidator {
     }
 
     public void validate(final Integer min, final Integer max) {
-        try {
-            if (ObjectUtils.isEmpty(min) && ObjectUtils.isEmpty(max)) {
-                throw new MissingServletRequestParameterException("Both min & max", "Integer");
-            }
 
-            if (ObjectUtils.isEmpty(min) || ObjectUtils.isEmpty(max)) {
-                throw new MissingServletRequestParameterException(ObjectUtils.isEmpty(min) ? "min" : "max", "Integer");
-            }
+        if (min < 1 || min > 3999) {
+            throw new UserInputException("min", ErrorMessage.INVALID_NUMBER_RANGE);
+        }
 
-            if (min < 1 || min > 3999) {
-                throw new UserInputException("min", ErrorMessage.INVALID_NUMBER_RANGE);
-            }
+        if (max < 1 || max > 3999) {
+            throw new UserInputException("max", ErrorMessage.INVALID_NUMBER_RANGE);
+        }
 
-            if (max < 1 || max > 3999) {
-                throw new UserInputException("max", ErrorMessage.INVALID_NUMBER_RANGE);
-            }
-
-            if (min >= max) {
-                throw new UserInputInvalidRangeException(ErrorMessage.MIN_MAX_VALUE_INVALID);
-            }
-        } catch (MissingServletRequestParameterException exception) {
-            throw new UserInputQueryParamMissingException(exception.getParameterName());
+        if (min >= max) {
+            throw new UserInputInvalidRangeException(ErrorMessage.MIN_MAX_VALUE_INVALID);
         }
     }
 
 
-    public boolean validate(final Integer query, final Integer min, final Integer max) {
+    public void validate(final Integer query, final Integer min, final Integer max) {
+        try {
 
-        if (ObjectUtils.isNotEmpty(query)) {
-            if (ObjectUtils.isNotEmpty(min) || ObjectUtils.isNotEmpty(max)) {
-                throw new UserInputException(ErrorMessage.INVALID_INPUT_PROVIDED);
-            } else return true;
-        } else {
-            if (ObjectUtils.isNotEmpty(min) && ObjectUtils.isNotEmpty(max)) {
-                return true;
+            if (ObjectUtils.isNotEmpty(query)) {
+                if (ObjectUtils.isNotEmpty(min) || ObjectUtils.isNotEmpty(max)) {
+                    throw new UserInputException(ErrorMessage.INVALID_INPUT_PROVIDED);
+                }
             } else {
-                throw new UserInputException(ErrorMessage.INVALID_INPUT_PROVIDED);
+                if (ObjectUtils.isEmpty(min) && ObjectUtils.isEmpty(max)) {
+                    throw new MissingServletRequestParameterException("Both min & max", "Integer");
+                }
+                if (ObjectUtils.isEmpty(min) || ObjectUtils.isEmpty(max)) {
+                    throw new MissingServletRequestParameterException(ObjectUtils.isEmpty(min) ? "min" : "max", "Integer");
+                }
             }
+        } catch (MissingServletRequestParameterException exception) {
+            throw new UserInputQueryParamMissingException(exception.getParameterName());
         }
 
     }
