@@ -2,6 +2,7 @@ package com.convert.romannumeral.exception;
 
 import com.convert.romannumeral.enums.ErrorMessage;
 import com.convert.romannumeral.model.ErrorResponse;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,10 +73,14 @@ public class CommonGlobalExceptionHandler extends ResponseEntityExceptionHandler
 
     private String buildError(final UserInputException exception) {
         final StringBuilder errorBuilder = new StringBuilder();
-        errorBuilder.append(exception.getErrorField())
-                .append(StringUtils.SPACE)
-                .append(" - ")
-                .append(exception.getErrorMessage().getMessage());
+        if (ObjectUtils.isNotEmpty(exception.getErrorField())) {
+            errorBuilder.append(exception.getErrorField())
+                    .append(StringUtils.SPACE)
+                    .append(" - ")
+                    .append(exception.getErrorMessage().getMessage());
+        } else {
+            errorBuilder.append(exception.getErrorMessage().getMessage());
+        }
         return errorBuilder.toString();
     }
 }

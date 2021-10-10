@@ -8,6 +8,7 @@ import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
 import com.openpojo.validation.utils.ValidationHelper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -48,7 +49,23 @@ class DtoPackageTest {
     @Test
     void test_compare() {
         final IntegerToRomanResponse request = new IntegerToRomanResponse("10", "X");
-        final int i = this.integerToRomanResponse.compareTo(request);
-        System.out.println(i);
+        final int response = this.integerToRomanResponse.compareTo(request);
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(-1, response);
+    }
+
+    @Test
+    void test_equals() {
+        final IntegerToRomanResponse request = new IntegerToRomanResponse("10", "X");
+        final boolean response = this.integerToRomanResponse.equals(request);
+        Assertions.assertNotNull(response);
+        Assertions.assertFalse(response);
+    }
+
+    @Test
+    void test_hashcode() {
+        final int response = this.integerToRomanResponse.hashCode();
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(5374, response);
     }
 }

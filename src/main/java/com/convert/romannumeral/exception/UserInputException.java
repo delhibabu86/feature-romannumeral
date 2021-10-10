@@ -9,6 +9,11 @@ public class UserInputException extends RuntimeException {
     private final ErrorMessage errorMessage;
     private final String errorField;
 
+    public UserInputException(final ErrorMessage errorMessage) {
+        this.errorField = null;
+        this.errorMessage = errorMessage;
+    }
+
     public UserInputException(final String errorField, final ErrorMessage errorMessage) {
         this.errorField = errorField;
         this.errorMessage = errorMessage;

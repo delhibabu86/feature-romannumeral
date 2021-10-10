@@ -52,7 +52,21 @@ class RomanNumberApplicationITest {
         final NumberRangeToRomanResponse numberRangeToRomanResponse = JsonUtils.readValue(mvcResult.getResponse().getContentAsString(), NumberRangeToRomanResponse.class);
         Assertions.assertNotNull(mvcResult);
         Assertions.assertNotNull(numberRangeToRomanResponse);
-        Assertions.assertEquals(23,numberRangeToRomanResponse.getConversions().size());
+        Assertions.assertEquals(23, numberRangeToRomanResponse.getConversions().size());
+    }
+
+    @WithMockUser("admin")
+    @Test
+    void convertIntegerToRomanNumber_queryPresent_minAndMaxPresent() throws Exception {
+        final RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/romannumeral?query=100&min=3212&max=3234").accept(MediaType.APPLICATION_JSON);
+        final MvcResult mvcResult = this.mockMvc.perform(requestBuilder).andExpect(status().isBadRequest()).andReturn();
+        final ErrorResponse errorResponse = JsonUtils.readValue(mvcResult.getResponse().getContentAsString(), ErrorResponse.class);
+        Assertions.assertNotNull(mvcResult);
+        Assertions.assertNotNull(errorResponse);
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), errorResponse.getStatusCode());
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, errorResponse.getStatusDescription());
+        Assertions.assertEquals(ErrorMessage.INVALID_INPUT_PROVIDED.name(), errorResponse.getErrorCode());
+        Assertions.assertEquals(ErrorMessage.INVALID_INPUT_PROVIDED.getMessage(), errorResponse.getErrors().get(0));
     }
 
     @WithMockUser("admin")
@@ -262,5 +276,17 @@ class RomanNumberApplicationITest {
 
         Assertions.assertNotNull(mvcResult);
         Assertions.assertNull(errorResponse);
+    }
+
+    @Test
+    void test_numberRangeToRomanResponse_toString() {
+        final NumberRangeToRomanResponse numberRangeToRomanResponse = new NumberRangeToRomanResponse();
+        Assertions.assertNotNull(numberRangeToRomanResponse.toString());
+    }
+
+    @Test
+    void test_integerToRomanResponse_toString() {
+        final IntegerToRomanResponse integerToRomanResponse = new IntegerToRomanResponse();
+        Assertions.assertNotNull(integerToRomanResponse.toString());
     }
 }

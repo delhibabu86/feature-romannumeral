@@ -33,7 +33,7 @@ API Contract & Design : http://localhost:8080/swagger-ui/index.html
 * Clone the git repo - https://github.com/delhibabu86/feature-romannumeral.git
 * cd feature-romannumeral
 * Execute mvn clean install on the project root folder.Ensure its completed successfully.
-* maven build will fail if Unit Test Code coverage is less than 100%
+* maven build will fail if Unit Test Code coverage is less than 90%
 
 ## Run with docker
 
