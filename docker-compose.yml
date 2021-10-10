@@ -35,7 +35,7 @@ services:
     links:
       - romannumeral
     environment:
-      - DD_API_KEY= a314f8263094d32263fbfc3de90f6906
+      - DD_API_KEY= 8b4232d27196c8e2dddd53ae319eb365
       - DD_HOSTNAME=ROMANNUMBER
       - DD_LOGS_ENABLED=true
       - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true

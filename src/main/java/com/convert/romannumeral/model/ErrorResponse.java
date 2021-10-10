@@ -13,8 +13,7 @@ import java.util.List;
  */
 public class ErrorResponse implements Serializable {
     private static final long serialVersionUID = -5402974223370441730L;
-    private Integer statusCode;
-    private HttpStatus statusDescription;
+    private Integer code;
     private String errorCode;
     private List<String> errors;
     private String message;
@@ -24,15 +23,14 @@ public class ErrorResponse implements Serializable {
     }
 
     public ErrorResponse(final HttpStatus httpStatus, final String message, final String errorCode, final String error) {
-        this.statusDescription = httpStatus;
+        this.code = httpStatus.value();
         this.message = message;
         errors = Arrays.asList(error);
-        this.statusCode = httpStatus.value();
         this.errorCode = errorCode;
     }
 
-    public HttpStatus getStatusDescription() {
-        return statusDescription;
+    public Integer getCode() {
+        return code;
     }
 
     public String getMessage() {
@@ -41,11 +39,6 @@ public class ErrorResponse implements Serializable {
 
     public List<String> getErrors() {
         return errors;
-    }
-
-
-    public Integer getStatusCode() {
-        return statusCode;
     }
 
     public String getErrorCode() {

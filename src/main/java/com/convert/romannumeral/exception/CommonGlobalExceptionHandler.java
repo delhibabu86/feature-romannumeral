@@ -34,7 +34,7 @@ public class CommonGlobalExceptionHandler extends ResponseEntityExceptionHandler
         final String error = exception.getParameterName() + ErrorMessage.MISSING_PARAMETER.getMessage();
         final ErrorResponse errorResponse = this.createError(HttpStatus.BAD_REQUEST, exception.getMessage(), ErrorMessage.MISSING_PARAMETER.name(), error);
         LOG.error("error in handleUserInputQueryParamMissingException --->: {}", errorResponse);
-        return new ResponseEntity<>(errorResponse, new HttpHeaders(), errorResponse.getStatusDescription());
+        return new ResponseEntity<>(errorResponse, new HttpHeaders(), errorResponse.getCode());
     }
 
     @ExceptionHandler(UserInputException.class)
@@ -57,14 +57,14 @@ public class CommonGlobalExceptionHandler extends ResponseEntityExceptionHandler
     protected ResponseEntity<Object> handleTypeMismatch(final TypeMismatchException exception, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
         final ErrorResponse errorResponse = this.createError(HttpStatus.BAD_REQUEST, exception.getMessage(), ErrorMessage.INPUT_TYPE_MISMATCH.name(), ErrorMessage.INPUT_TYPE_MISMATCH.getMessage());
         LOG.error("error in  handleTypeMismatch --->: {}", errorResponse);
-        return new ResponseEntity<>(errorResponse, new HttpHeaders(), errorResponse.getStatusDescription());
+        return new ResponseEntity<>(errorResponse, new HttpHeaders(), errorResponse.getCode());
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(final Exception exception, final HttpServletRequest request) {
         final ErrorResponse errorResponse = this.createError(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage(), ErrorMessage.INTERNAL_SERVER_ERROR.name(), ErrorMessage.INTERNAL_SERVER_ERROR.getMessage());
         LOG.error("error in  handleException --->: {}", errorResponse);
-        return new ResponseEntity<>(errorResponse, new HttpHeaders(), errorResponse.getStatusDescription());
+        return new ResponseEntity<>(errorResponse, new HttpHeaders(), errorResponse.getCode());
     }
 
     private ErrorResponse createError(final HttpStatus status, final String localizedMessage, final String errorCode, final String error) {

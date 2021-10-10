@@ -19,11 +19,10 @@ class JsonUtilTest {
 
     @Test
     void test_readValue() {
-        final String mockedResponse = "{\"statusCode\":400,\"statusDescription\":\"BAD_REQUEST\",\"errorCode\":\"INVALID_NUMBER_RANGE\",\"errors\":[\"max  - Invalid number range , please enter an integer number between 1 to 3999\"]}";
+        final String mockedResponse = "{\"code\":\"400\",\"errorCode\":\"INVALID_NUMBER_RANGE\",\"errors\":[\"max  - Invalid number range , please enter an integer number between 1 to 3999\"]}";
         final ErrorResponse errorResponse = JsonUtils.readValue(mockedResponse, ErrorResponse.class);
         Assertions.assertNotNull(errorResponse);
-        Assertions.assertEquals(400, errorResponse.getStatusCode());
-        Assertions.assertEquals("BAD_REQUEST", errorResponse.getStatusDescription().name());
+        Assertions.assertEquals(400, errorResponse.getCode());
         Assertions.assertEquals("INVALID_NUMBER_RANGE", errorResponse.getErrorCode());
         Assertions.assertEquals(1, errorResponse.getErrors().size());
     }

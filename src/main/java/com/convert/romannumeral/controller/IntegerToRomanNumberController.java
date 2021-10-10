@@ -73,33 +73,30 @@ public class IntegerToRomanNumberController {
 
         LOGGER.info(" Incoming Request query min max ----> {} {} {} ", query, min, max);
 
-        boolean isValid = this.numberValidator.validate(query, min, max);
+        this.numberValidator.validate(query, min, max);
 
-        if (isValid) {
-            if (ObjectUtils.isNotEmpty(query)) {
 
-                final long startTime = System.currentTimeMillis();
-                final IntegerToRomanResponse response = this.integerToRomanNumberService.convertIntegerToRomanNumber(query);
-                final long endTime = System.currentTimeMillis();
+        if (ObjectUtils.isNotEmpty(query)) {
 
-                final Map<String, Object> romanNumberOutput = new LinkedHashMap<>();
-                romanNumberOutput.put("input", response.getInput());
-                romanNumberOutput.put("output", response.getOutput());
+            final long startTime = System.currentTimeMillis();
+            final IntegerToRomanResponse response = this.integerToRomanNumberService.convertIntegerToRomanNumber(query);
+            final long endTime = System.currentTimeMillis();
 
-                LOGGER.info(" Total time taken for GET API /romannumeral with query param is ----> {} {}", (endTime - startTime), "ms");
-                return romanNumberOutput;
+            final Map<String, Object> romanNumberOutput = new LinkedHashMap<>();
+            romanNumberOutput.put("input", response.getInput());
+            romanNumberOutput.put("output", response.getOutput());
 
-            } else {
-                final long startTime = System.currentTimeMillis();
-                final Map<String, Object> response = this.integerRangeToRomanNumberService.convertIntegerRangeToRomanNumber(min, max);
-                final long endTime = System.currentTimeMillis();
+            LOGGER.info(" Total time taken for GET API /romannumeral with query param is ----> {} {}", (endTime - startTime), "ms");
+            return romanNumberOutput;
 
-                LOGGER.info(" Total time taken for GET API /romannumeral with range param is ----> {} {}", (endTime - startTime), "ms");
-                return response;
-            }
+        } else {
+            final long startTime = System.currentTimeMillis();
+            final Map<String, Object> response = this.integerRangeToRomanNumberService.convertIntegerRangeToRomanNumber(min, max);
+            final long endTime = System.currentTimeMillis();
+
+            LOGGER.info(" Total time taken for GET API /romannumeral with range param is ----> {} {}", (endTime - startTime), "ms");
+            return response;
         }
-
-        return null;
     }
 
 }

@@ -33,7 +33,7 @@ API Contract & Design : http://localhost:8080/swagger-ui/index.html
 * Clone the git repo - https://github.com/delhibabu86/feature-romannumeral.git
 * cd feature-romannumeral
 * Execute mvn clean install on the project root folder.Ensure its completed successfully.
-* maven build will fail if Unit Test Code coverage is less than 90%
+* maven build will fail if Unit Test Code coverage is less than 95%
 
 ## Run with docker
 
@@ -92,7 +92,7 @@ API Contract & Design : http://localhost:8080/swagger-ui/index.html
 ![](assets/ProjectStructure.png)
 
 ## Dependency Tree
-![](assets/dependency_tree_1.png)
+![](assets/dependencyTree_1.png)
 ![](assets/dependencytree_image2.png)
 
 
@@ -132,14 +132,16 @@ Please look into SonarQube_setup.pdf under assets folder
 
 # DataDog
 
-Create a free account & generate api key.
+Log into https://app.datadoghq.com with dlearnvb86@gmail.com/learn2fun
 
+Select Logs on left side of menu .
 * Below shows logs aggregation on data dog
 
 ![](assets/datadog_logs.png)
 
 ![](assets/datadog_logs_2.png)
 
+Select metrics on left side of menu
 * Below shows metrics dashboard from datadog
 
 ![](assets/datadog_metrics_prometheus.png)
