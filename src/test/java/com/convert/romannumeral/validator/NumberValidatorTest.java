@@ -128,4 +128,9 @@ class NumberValidatorTest {
     void test_validate_QueryNotPresent_minAndMax_NotPresent() {
         Assertions.assertThrows(UserInputException.class, () -> this.numberValidator.validate(null, null, null));
     }
+
+    @Test
+    void test_validate_QueryPresent_minAndMaxNotPresent() {
+        Assertions.assertTrue(this.numberValidator.validate(10, null, null));
+    }
 }

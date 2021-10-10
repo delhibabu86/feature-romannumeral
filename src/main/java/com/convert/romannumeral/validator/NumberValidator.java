@@ -54,25 +54,21 @@ public class NumberValidator {
         }
     }
 
+
     public boolean validate(final Integer query, final Integer min, final Integer max) {
-        if (ObjectUtils.isNotEmpty(query) && (ObjectUtils.isEmpty(min) && ObjectUtils.isEmpty(max))) {
-            return true;
 
-        } else if (ObjectUtils.isNotEmpty(query) && (ObjectUtils.isNotEmpty(min) && ObjectUtils.isNotEmpty(max))) {
-            throw new UserInputException(ErrorMessage.INVALID_INPUT_PROVIDED);
-
-        } else if (ObjectUtils.isEmpty(query) && (ObjectUtils.isNotEmpty(min) && ObjectUtils.isNotEmpty(max))) {
-            return true;
-
-        } else if (ObjectUtils.isNotEmpty(query) && (ObjectUtils.isEmpty(min) || ObjectUtils.isEmpty(max))) {
-            throw new UserInputException(ErrorMessage.INVALID_INPUT_PROVIDED);
-
-        } else if (ObjectUtils.isEmpty(query) && ObjectUtils.isEmpty(min) && ObjectUtils.isEmpty(max)) {
-            throw new UserInputException(ErrorMessage.INVALID_INPUT_PROVIDED);
-        } else if (ObjectUtils.isEmpty(query) && (ObjectUtils.isEmpty(min) || ObjectUtils.isEmpty(max))) {
-            throw new UserInputException(ErrorMessage.INVALID_INPUT_PROVIDED);
+        if (ObjectUtils.isNotEmpty(query)) {
+            if (ObjectUtils.isNotEmpty(min) || ObjectUtils.isNotEmpty(max)) {
+                throw new UserInputException(ErrorMessage.INVALID_INPUT_PROVIDED);
+            } else return true;
         } else {
-            throw new UserInputException(ErrorMessage.INVALID_INPUT_PROVIDED);
+            if (ObjectUtils.isNotEmpty(min) && ObjectUtils.isNotEmpty(max)) {
+                return true;
+            } else {
+                throw new UserInputException(ErrorMessage.INVALID_INPUT_PROVIDED);
+            }
         }
+
     }
+
 }
