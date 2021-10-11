@@ -16,7 +16,7 @@ API Contract & Design : http://localhost:8080/swagger-ui/index.html
 ## Summary
 
 - [How to build & run project](#how-to-build--run-project-)
-- [Application Architecture](#application-architecture)
+- [Application Architecture](#high-level-architecture)
 - [Development Stack](#development-stack)
 - [Test Stack](#test-stack)
 - [Monitoring & Metrics Tools](#monitoring--metrics-stack)
@@ -24,7 +24,7 @@ API Contract & Design : http://localhost:8080/swagger-ui/index.html
 - [Dependency Tree](#dependency-tree)  
 - [API samples](#api-samples)
 - [Testing](#testing)
-- [Tools Enablement](#tools-enablement)
+- [Tools Enablement](#tools-enablement-and-setup)
 - [References](#references)
 - [Enhancements](#enhancements)
 
@@ -124,7 +124,7 @@ Unit Test Result from sonarqube :
 Integration Test results from Intellij Jacoco plugin :
 ![](assets/integration_test_results.png)
 
-## Tools Enablement/Setup
+## Tools Enablement and Setup
 
 #SonarQube 
 
