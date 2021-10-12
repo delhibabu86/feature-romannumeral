@@ -75,10 +75,9 @@ public class IntegerToRomanNumberController {
 
         this.numberValidator.validate(query, min, max);
 
-
+        final long startTime = System.currentTimeMillis();
         if (ObjectUtils.isNotEmpty(query)) {
 
-            final long startTime = System.currentTimeMillis();
             final IntegerToRomanResponse response = this.integerToRomanNumberService.convertIntegerToRomanNumber(query);
             final long endTime = System.currentTimeMillis();
 
@@ -90,7 +89,6 @@ public class IntegerToRomanNumberController {
             return romanNumberOutput;
 
         } else {
-            final long startTime = System.currentTimeMillis();
             final Map<String, Object> response = this.integerRangeToRomanNumberService.convertIntegerRangeToRomanNumber(min, max);
             final long endTime = System.currentTimeMillis();
 
