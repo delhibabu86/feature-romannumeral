@@ -79,12 +79,12 @@ public class IntegerToRomanNumberController {
         if (ObjectUtils.isNotEmpty(query)) {
 
             final IntegerToRomanResponse response = this.integerToRomanNumberService.convertIntegerToRomanNumber(query);
-            final long endTime = System.currentTimeMillis();
 
             final Map<String, Object> romanNumberOutput = new LinkedHashMap<>();
             romanNumberOutput.put("input", response.getInput());
             romanNumberOutput.put("output", response.getOutput());
 
+            final long endTime = System.currentTimeMillis();
             LOGGER.info(" Total time taken for GET API /romannumeral with query param is ----> {} {}", (endTime - startTime), "ms");
             return romanNumberOutput;
 
